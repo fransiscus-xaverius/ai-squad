@@ -1,0 +1,30 @@
+{
+  "session_id": "<session-id>",
+  "created_at": "<iso8601>",
+  "updated_at": "<iso8601>",
+  "features": [
+    {
+      "id": "F-001",
+      "phase": "P1",
+      "category": "functional|ui|api|infra|docs",
+      "description": "Describe user-visible or verifiable outcome",
+      "acceptance_steps": [
+        "Step 1",
+        "Step 2"
+      ],
+      "status": "failing|in_progress|passing|blocked",
+      "evidence": [
+        "tech-notes/<session-id>/...",
+        "qa/<session-id>/...",
+        "command-or-test-reference"
+      ],
+      "owner": "technical-lead|engineer-specialist-*|qa-agent",
+      "notes": ""
+    }
+  ],
+  "rules": {
+    "immutable_fields": ["id", "description", "acceptance_steps", "category"],
+    "mutable_fields": ["phase", "status", "evidence", "owner", "notes", "updated_at"],
+    "status_policy": "Only mark passing with fresh verification evidence linked in evidence fields."
+  }
+}

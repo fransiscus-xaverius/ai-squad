@@ -1,0 +1,50 @@
+# <SESSION_ID> PRD
+
+## 1. Summary
+- Problem statement:
+- Requested outcome / user value:
+- Priority/urgency:
+
+## 2. Goals
+- 
+
+## 3. Non-goals / Out of scope
+- 
+
+## 4. Functional requirements
+- FR1:
+- FR2:
+
+## 5. Acceptance criteria (testable/verifiable)
+- AC1:
+- AC2:
+
+## 6. Constraints and dependencies
+- Technical constraints (stack, compatibility, performance, security, etc.):
+- Product/business constraints:
+- Dependencies (services, APIs, data, teams, credentials):
+
+## 7. Execution context (confirmed)
+- Repository/directory:
+- Base branch:
+- Working branch/worktree:
+- Environment/setup notes and prerequisites status:
+- UI/browser QA in scope? (Playwright readiness: installed/browsers/app runnable or gaps):
+
+## 8. Assumptions
+- 
+
+## 9. Risks and mitigations
+- Risk:
+  - Impact:
+  - Likelihood:
+  - Mitigation / verification:
+
+## 10. Open questions and decisions
+- Q:
+  - Decision/owner/status/date:
+
+## 11. Approval
+- Requirements/context approved by:
+- Date:
+- Notes:

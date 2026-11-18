@@ -1,0 +1,30 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "orchestrator-pm",
+  "agents": {
+    "orchestrator-pm": {
+      "mode": "primary",
+      "description": "Intake, requirement clarification, environment confirmation, PRD ownership, and delegation to technical lead"
+    },
+    "technical-lead": {
+      "mode": "all",
+      "description": "Plans implementation, owns technical artifacts/state tracking, orchestrates phased execution and review loops"
+    },
+    "qa-agent": {
+      "mode": "subagent",
+      "description": "Creates test plans/cases, runs QA validation (including Playwright), and produces evidence-backed verdicts"
+    },
+    "engineer-specialist-backend-node": { "mode": "subagent" },
+    "engineer-specialist-frontend-node": { "mode": "subagent" },
+    "engineer-specialist-backend-go": { "mode": "subagent" },
+    "hunter-specialist-backend-node": { "mode": "subagent" },
+    "hunter-specialist-frontend-node": { "mode": "subagent" },
+    "hunter-specialist-backend-go": { "mode": "subagent" },
+    "skeptic-specialist-backend-node": { "mode": "subagent" },
+    "skeptic-specialist-frontend-node": { "mode": "subagent" },
+    "skeptic-specialist-backend-go": { "mode": "subagent" },
+    "referee-specialist-backend-node": { "mode": "subagent" },
+    "referee-specialist-frontend-node": { "mode": "subagent" },
+    "referee-specialist-backend-go": { "mode": "subagent" }
+  }
+}
