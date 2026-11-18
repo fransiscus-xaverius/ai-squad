@@ -26,6 +26,7 @@ Use when multiple tasks are independent and can proceed concurrently without uns
 - Orchestrator (typically TL) remains accountable for sequencing, gates, and final integration.
 - Preserve QA-first, evidence, and escalation rules; parallel work does not bypass phase gates.
 - If parallel execution unsupported, run sequentially with same packet quality.
+- **Worked pattern in this framework:** the design lane (`designer-ui-ux`) runs in parallel with implementation — the designer publishes the design doc (`tech-notes/<session-id>/<title>-<date>-design.md`) and prototypes while engineers implement, the seam is the doc's tokens/states, and mid-flight direction changes go through the TL with `blast-radius` rather than silent divergence.
 
 ## References
 - Anthropic, *How we built our multi-agent research system*: https://www.anthropic.com/engineering/built-multi-agent-research-system

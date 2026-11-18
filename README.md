@@ -59,6 +59,7 @@ If Playwright/browsers/app runtime are unavailable, UI automation must not be re
 | `orchestrator-pm` | primary | Intake, grill-me clarification, repo/branch+environment confirmation, PRD creation, handoff to technical lead |
 | `technical-lead` | primary/subagent-capable | Technical assessment/planning, artifact ownership, phased orchestration, QA/review loops, escalation handling |
 | `qa-agent` | subagent | Test plan/case design, test execution (incl. Playwright for UI), evidence capture, PASS/FAIL/BLOCKED verdicts |
+| `designer-ui-ux` | subagent | Runs in parallel with engineering: UI/UX direction from the product's real flow, `.html` prototypes, and the frontend design doc (`<title>-<date>-design.md`) engineers build from |
 
 #### Specialist roles by stack
 Stacks included: `backend-node`, `frontend-node`, `backend-go`
@@ -113,6 +114,13 @@ Stacks included: `backend-node`, `frontend-node`, `backend-go`
 | `backend-go` | Go backend implementation/concurrency/error/testing/verification patterns aligned to framework gates/artifacts |
 | `typescript-best-practices` | TypeScript correctness/modeling/boundary best practices for `.ts/.tsx` stack work |
 
+#### Design skills
+| Skill | Purpose |
+|---|---|
+| `antialgorithm` | Anti-algorithm taste: find the default first answer, then move away from it for a reason grounded in this product (visual direction, layout concept, copy, naming, interface concept) |
+| `ui-ux-pro-max` | Structured UI/UX design intelligence: product-type reasoning, palettes, typography, style, UX/accessibility rules, responsive layout, charts, optional searchable catalog tool, pre-delivery checklist |
+| `design-principles` | The project's own interface rules: delete filter badges, drop redundant labels, mono only where needed, one design system, know the product flow first, group with spacing, enlarge the main feature, specific headlines, emphasized CTA, one accent color, consistent icons, no embellishments, inner radius = outer − padding, text contrast, proper headline wrapping, optical alignment, tabular numerals, loading states, useful motion, and mobile-first layout |
+
 #### Security and performance skills
 | Skill | Purpose |
 |---|---|
@@ -141,6 +149,7 @@ Stacks included: `backend-node`, `frontend-node`, `backend-go`
 - `implementation-state-template.md`
 - `qa-test-plan-template.md`
 - `qa-verdict-template.md`
+- `design-doc-template.md`
 - `review-hunter-template.md`
 - `review-skeptic-template.md`
 - `review-referee-template.md`
@@ -164,6 +173,11 @@ flowchart TD
     C1 --> C2{Human plan review/approval?}
     C2 -- Revise --> C1
     C2 -- Approved --> D[Phased execution loop]
+    C2 -- Approved --> C3{UI/design in scope?}
+    C3 -- Yes --> C4[Design lane - runs in parallel<br/>designer-ui-ux<br/>direction checkpoint then rolling prototypes]
+    C4 --> C5[Frontend design doc<br/>tech-notes/session-id/<title>-<date>-design.md<br/>+ prototypes/*.html]
+    C5 -.->|design context for frontend phases| D3
+    C3 -- No --> D
 
     subgraph D [Per phase - TL orchestrates]
       D1[QA test design/review<br/>qa-agent + qa-playwright] --> D2{TL: test plan adequate?}
@@ -200,19 +214,21 @@ flowchart TD
 
     classDef gate fill:#fff3cd,stroke:#b59f3b,color:#333;
     classDef human fill:#fde2e2,stroke:#c43d3d,color:#333;
-    class B2,C2,D2,D6,D9,F,G,H,R4 gate;
+    class B2,C2,C3,D2,D6,D9,F,G,H,R4 gate;
     class E,Z human;
 ```
 
 ### Workflow notes
 1. **Intake (Orchestrator/PM):** clarify vague request (`grill-me`), confirm repo/directory + base/working branch + environment/prereqs (incl. Playwright readiness for UI QA), create `<session-id>-prd.txt`.
 2. **Planning (Technical Lead):** produce `tech-notes/<session-id>/{implementation-plan,state-machine,tech-spec,implementation-state}.md`, present for human review/revision, and pause for approval.
-3. **Phased execution (TL-orchestrated):** per phase, QA designs/reviews tests first -> engineer implements to spec and passes local checks (frontend adds stable `data-testid`; apply relevant stack skills and `blast-radius` for risky changes) -> QA validates and issues evidence-backed verdict.
+3. **Design (parallel lane, UI in scope):** `designer-ui-ux` works **concurrently with the technical lead and engineers** — not as a blocking predecessor. It publishes a direction checkpoint first, then rolling `.html` prototypes, and delivers the frontend design doc `tech-notes/<session-id>/<title>-<date>-design.md` (tokens, fonts, libraries/CSS, prototype file list, per-surface states, mobile-first behavior, accessibility, change log). Engineers build from the design doc and prototypes; visual decisions are never guessed.
+   - **Sync protocol:** the doc status moves `draft → in-review → approved`; engineers may start non-visual work from a published draft. A direction change after implementation starts is recorded in the change log and routed through the technical lead, who applies `blast-radius` to decide re-work versus an accepted deviation.
+4. **Phased execution (TL-orchestrated):** per phase, QA designs/reviews tests first -> engineer implements to spec and passes local checks (frontend adds stable `data-testid`; apply relevant stack skills and `blast-radius` for risky changes) -> QA validates and issues evidence-backed verdict.
    - Phases that expose an API, authentication/authorization, untrusted input, a real-time channel, or hot-path data access additionally apply the security/performance skills (`secure-backend-engineering`, `api-security-review`, `auth-authorization`, `input-validation-sanitization`, `websocket-security`, `backend-performance`) and must carry matching QA cases.
-4. **Retries & escalation:** on failure, apply root-cause analysis (`fix-root-causes`); if the same gate/pattern repeats, test the premise (`attack-the-premise`) before retry; **max 3 failed integration/QA attempts per phase** triggers mandatory human escalation/pause with evidence, hypotheses, and options.
-5. **Review adjudication (optional/milestone):** hunter finds issues -> skeptic validates -> referee issues final actions; accepted blockers return to fix/QA loops.
-6. **Closeout:** finalized implementation state, QA/review evidence, deployment/test notes, and remaining risks/follow-ups.
-7. **Autonomy and evidence:** proceed on reversible in-scope work (`autonomy-with-gates`), but never claim completion without verification evidence; preserve gates and record tool/prereq gaps.
+5. **Retries & escalation:** on failure, apply root-cause analysis (`fix-root-causes`); if the same gate/pattern repeats, test the premise (`attack-the-premise`) before retry; **max 3 failed integration/QA attempts per phase** triggers mandatory human escalation/pause with evidence, hypotheses, and options.
+6. **Review adjudication (optional/milestone):** hunter finds issues -> skeptic validates -> referee issues final actions; accepted blockers return to fix/QA loops.
+7. **Closeout:** finalized implementation state, QA/review evidence, deployment/test notes, and remaining risks/follow-ups.
+8. **Autonomy and evidence:** proceed on reversible in-scope work (`autonomy-with-gates`), but never claim completion without verification evidence; preserve gates and record tool/prereq gaps.
 
 
 ## Implementation of provided agentic-engineering sources (papers/resources)
@@ -238,6 +254,21 @@ The canonical security/performance skills were adapted (not bulk-copied) from tw
 
 Deliberately **not** added to the default engineering harness: offensive/red-team/pentest, malware analysis, digital forensics/incident response, cloud/container/Kubernetes/OT/network/wireless hardening, phishing simulation, and compliance/purple-team skills. They are dual-use, require explicit authorization and specialist tooling, and do not belong in an implementation/QA/review loop. Security knowledge for mass assignment, CORS misconfiguration, SSRF, XSS/XXE, secrets handling, and dependency/supply-chain hygiene was folded into `api-security-review`, `input-validation-sanitization`, and `secure-backend-engineering` with OWASP grounding rather than duplicated as separate skills.
 
+## Credits and attributions
+
+This framework reuses and adapts patterns from open-source projects. Every entry lists what was used, where it landed, and the upstream license; each adapted skill also carries the attribution in its own `## References` section. Nothing was bulk-copied — the upstream material was restructured to fit this framework's roles, gates, and artifact contracts.
+
+| Upstream project | License | What was used | Where it landed |
+|---|---|---|---|
+| [obra/superpowers](https://github.com/obra/superpowers) | MIT | Skill structure and workflow patterns: strict TDD, systematic debugging, verification-before-completion, plan writing/execution, git worktrees, branch closeout, request/receive code review, subagent-driven development, skill authoring, premise checks | `test-driven-development`, `targeted-tdd`, `systematic-debugging`, `verification-before-completion`, `writing-plans`, `executing-plans`, `using-git-worktrees`, `finishing-a-development-branch`, `requesting-code-review`, `receiving-code-review`, `subagent-driven-development`, `dispatching-parallel-agents`, `writing-skills`, `brainstorming`, `attack-the-premise`, `fix-root-causes`, `correct` |
+| [cursor/plugins](https://github.com/cursor/plugins) (`pstack` plugin collection) | No license declared upstream — referenced by concept, no code copied | Engineering-discipline concepts: blast radius and provable safety facts, smallest-complete-change, boundary discipline, benchmark discipline, architecture-first, autonomous-but-gated execution | `blast-radius`, `ponytail`, `boundary-discipline`, `benchmark-checklist`, `autonomy-with-gates`, `architect` |
+| [mankidev/antialgorithm](https://github.com/mankidev/antialgorithm) | MIT (© 2026 mankidev) | Anti-default creative-direction method: find the default first answer and move away with a reason, visual "method marks", the default interface shell, copy rules, escape-becomes-default tracking | `antialgorithm` |
+| [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | MIT | Design-intelligence workflow: priority rule categories, search-driven design-system generation, master/override persistence pattern, design dials, RTL handling, pre-delivery checklist | `ui-ux-pro-max` |
+| [mukul975/anthropic-cybersecurity-skills](https://github.com/mukul975/anthropic-cybersecurity-skills) | Apache-2.0 (community project, not affiliated with Anthropic PBC) | Review/verification skill structure for API security, BOLA/IDOR, JWT token handling, and WebSocket security passes | `api-security-review`, `auth-authorization`, `websocket-security`, `secure-backend-engineering` |
+| [OWASP Cheat Sheet Series](https://github.com/OWASP/CheatSheetSeries) | CC BY-SA 4.0 | Canonical security content: REST security, WebSocket security, authentication, authorization, input validation, SQL injection prevention, IDOR prevention, mass assignment, HTTP headers, logging, error handling | `secure-backend-engineering`, `api-security-review`, `websocket-security`, `auth-authorization`, `input-validation-sanitization` |
+
+**Cited as documentation and guidance (not copied):** Anthropic engineering posts and product docs (effective agents, multi-agent systems, long-running harnesses, context/tool/prompt engineering); Playwright docs (best practices, locators, assertions, fixtures, trace, CI); Testing Library query priority; Node.js Learn (blocking vs non-blocking); Go docs (Effective Go, Code Review Comments, context, error handling, table-driven tests, race detector); TypeScript Handbook; MDN Web Docs; W3C/WAI (WCAG 2.2); web.dev (accessibility, CLS); PostgreSQL docs; W3C Design Tokens Community Group; skills.sh packaging docs.
+
 ## Usage notes
 
 - **OpenCode:** use `opencode.jsonc` and `.opencode/` symlinks (see `adapters/opencode.md`).
@@ -245,6 +276,7 @@ Deliberately **not** added to the default engineering harness: offensive/red-tea
 - **Canonical source of truth:** edit `agents/` and `skills/`; adapters should reference/mirror them.
 - **Session outputs:** generate PRD/tech-notes/QA/review artifacts per session using `templates/` and `core/artifacts.md`.
 - **Stack skills:** specialists should apply the matching stack skill (`backend-node`, `frontend-node`, `backend-go`) and `typescript-best-practices` for TS/TSX work.
+- **Design skills:** UI work runs through `designer-ui-ux` with `antialgorithm`, `ui-ux-pro-max`, and `design-principles`; the design handoff is the contract engineers build from and QA verifies.
 - **Security/performance skills:** apply `secure-backend-engineering` plus `api-security-review`, `auth-authorization`, `input-validation-sanitization`, `websocket-security`, and `backend-performance` as the touched surface requires; unverified controls are reported as gaps, never assumed secure.
 
 ## Extending

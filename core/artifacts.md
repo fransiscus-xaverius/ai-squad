@@ -14,6 +14,7 @@ Use a stable `<session-id>` for all artifacts in a run.
 | Implementation plan | `tech-notes/<session-id>/implementation-plan.md` | TL |
 | State machine | `tech-notes/<session-id>/state-machine.md` | TL |
 | Tech spec | `tech-notes/<session-id>/tech-spec.md` | TL |
+| Design doc (UI in scope) | `tech-notes/<session-id>/<title>-<date>-design.md` (+ `prototypes/*.html`) | Designer (approved by TL/human) |
 | Implementation state (canonical) | `tech-notes/<session-id>/implementation-state.md` | TL |
 | Feature tracker | `tech-notes/<session-id>/feature-list.json` | TL (updated with evidence) |
 | Progress log | `tech-notes/<session-id>/progress.md` | TL/active role (append-only checkpoints) |
@@ -46,6 +47,17 @@ Use a stable `<session-id>` for all artifacts in a run.
 - Contracts, data models, API/schema changes, migration notes (if any)
 - Test/observability/deployment-runtime notes relevant to implementation
 - Key design rationale and tradeoffs (esp. for non-trivial choices)
+
+### Design doc (`<title>-<date>-design.md`, UI in scope)
+- Header: title, date (`YYYY-MM-DD`), status (`draft | in-review | approved`), surfaces in scope
+- Product/flow context, direction and rationale (including the default deliberately not taken)
+- Rules applied and intentionally broken (`design-principles`, `antialgorithm`, `ui-ux-pro-max` checks)
+- Token system (color roles, type scale, spacing, radii, elevation, motion, icon set)
+- **Fonts:** families, weights, source, license note, fallback stack, loading strategy
+- **Libraries and CSS:** every library (name, version, CDN/local path, why) and every custom CSS file (path, what it defines), plus what engineers must port into the project styling system
+- **Prototype files:** every `.html` prototype with path, purpose, screen/state shown, how to open it, and what to copy from it
+- Per-surface specs with all states (loading, empty, error, success, disabled, permission), mobile-first behavior, accessibility notes with verification status, interaction/motion notes
+- Change log (date, change, impact, approver) and open questions/assumptions
 
 ### Implementation state (`implementation-state.md`, TL-owned canonical)
 - Current phase/task and overall status

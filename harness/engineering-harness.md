@@ -16,6 +16,7 @@ Provider-agnostic execution, verification, evidence, and escalation rules for al
 - **Root-cause before repeat fixes:** retries must address evidenced causes/premises, not symptoms (`fix-root-causes`, `systematic-debugging`, `attack-the-premise`).
 - **No silent scope creep:** deviations require TL note; material deviations require human confirmation/approval.
 - **Secure by default, verified by evidence:** new HTTP surfaces, authentication/authorization, untrusted input, and real-time channels require explicit controls (`secure-backend-engineering`, `api-security-review`, `auth-authorization`, `input-validation-sanitization`, `websocket-security`) and matching QA cases. A control that could not be exercised is recorded as **unverified**, never assumed present.
+- **Design from the product, not the template:** interface work starts from the real user flow and lands in an approved design handoff before implementation; screens are not built from a default shell, and design states (loading/empty/error/permission) are designed, not improvised in code.
 
 ## Prerequisites and environment
 
@@ -53,6 +54,16 @@ Provider-agnostic execution, verification, evidence, and escalation rules for al
 - Report: files changed, checks/commands/results, behavior/contract impact, risks/limitations, and spec ambiguities.
 - Do not declare phase complete without evidence.
 
+### Designer (`designer-ui-ux`)
+- Runs **in parallel** with the technical lead and engineers; the design lane never blocks implementation: publish the direction checkpoint first, then rolling prototypes (`tech-notes/<session-id>/prototypes/*.html`), while engineers build from the published design doc.
+- Owns the frontend design doc `tech-notes/<session-id>/<title>-<date>-design.md` (`templates/design-doc-template.md`), which lists the direction, tokens, **fonts**, **libraries and custom CSS**, and **every prototype file** — the contract engineers implement and QA verifies.
+- Derives interface direction from the product's real flow (states, data, entry/exit points), not from a default template; states the default it avoided and the reason for its own direction (`antialgorithm`).
+- Applies the project's rules (`design-principles`, including the mobile-first rule) and the broader design guidance (`ui-ux-pro-max`); records any rule intentionally broken and why.
+- Specifies the system (tokens, component states, icon set, motion) plus every state (loading, empty, error, success, disabled, permission) and responsive/mobile-first behavior — not just the happy path.
+- Prototypes are reference artifacts (self-contained HTML, no build step), not production code; engineers port the intent into the project's framework and tokens.
+- Verifies what can be verified (contrast ratios, focus visibility, reflow, mobile layout at 320/375px, reduced motion, target sizes); unverified items are reported as unverified, never assumed.
+- **Change protocol:** a design or prototype change after implementation started is recorded in the design doc change log and raised with the technical lead, who applies `blast-radius` to decide re-work versus an accepted deviation. Direction approval is tracked by the doc status (`draft → in-review → approved`).
+
 ### QA agent (`qa-agent`)
 - Produces/revises phase test cases before implementation; TL confirms adequacy before build work proceeds.
 - Executes validation against target environment (local when applicable) with reproducible steps and evidence.
@@ -60,6 +71,7 @@ Provider-agnostic execution, verification, evidence, and escalation rules for al
 - Issues verdict **PASS / FAIL / BLOCKED** with scope, env/prereqs, steps, expected vs actual, evidence paths, defects, and distinction between product vs environment/harness issues when inferable.
 - Never reports UI automation PASS when prerequisites/app/runtime unavailable.
 - Include security/performance cases for in-scope API, authentication/authorization, input-boundary, and real-time surfaces (`api-security-review`, `auth-authorization`, `input-validation-sanitization`, `websocket-security`, `backend-performance`); a control that could not be exercised is **BLOCKED/unverified**, not a pass.
+- For UI phases, verify the approved design doc (`tech-notes/<session-id>/<title>-<date>-design.md`): every designed state exists (loading/empty/error/success/disabled/permission), tokens are used instead of raw values, contrast/focus/target-size/reflow/mobile-first/reduced-motion expectations hold, and the handoff's `data-testid` suggestions are present and stable. Prototypes are the visual reference, not the app: the verdict covers the implementation.
 
 ### Review roles (hunter / skeptic / referee, per stack)
 - **Hunter:** find likely defects/regressions/edge/security/contract issues with concrete evidence (locations, repro/reasoning, executed checks) and impact.

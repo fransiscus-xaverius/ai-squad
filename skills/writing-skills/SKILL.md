@@ -14,6 +14,7 @@ Use when adding or revising skills in `skills/<skill-id>/SKILL.md` (canonical).
 4. **Actionable and evidence-oriented:** provide concrete steps, inputs/outputs, verification/evidence expectations, and escalation/gate handling where relevant.
 5. **Portable and safe:** keep guidance provider-agnostic; label prerequisites (e.g. Playwright for UI QA) and avoid unsafe/destructive defaults.
 6. **Source-grounded when expanding:** cite reputable sources (official docs, Anthropic engineering posts, recognized references) in a References section for substantive domain guidance.
+7. **Credit adapted work:** when a skill adapts an external open-source skill or pattern, name the upstream project, its license, and the URL in that skill's `## References` section, and add a row to the README "Credits and attributions" table (upstream project, license, what was used, which skills it landed in). Attribute concepts and structure explicitly — do not present adapted work as original.
 
 ## Quality checklist
 - Triggering is accurate (applies when it should, not overly broad/narrow)
@@ -21,6 +22,7 @@ Use when adding or revising skills in `skills/<skill-id>/SKILL.md` (canonical).
 - Evidence, gates, and reporting expectations are explicit where applicable
 - Examples/commands are practical and prerequisite-aware
 - README inventory and relevant agent/bootstrap/docs references updated for canonical skills
+- Adapted upstream sources are credited with license in the skill and in the README credits table
 
 ## Validation mindset
 - Test against representative scenarios: should trigger, should not trigger, and edge/pressure cases.

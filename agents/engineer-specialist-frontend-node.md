@@ -14,6 +14,7 @@ Implement only the assigned phase/tasks from the technical lead's plan/spec.
 
 ## Responsibilities
 - Implement UI/UX behavior per spec and acceptance criteria. Apply `frontend-node` and `typescript-best-practices` (for TS/TSX) plus relevant core skills (`boundary-discipline`, `blast-radius` for risky changes, `test-driven-development`/`targeted-tdd` as appropriate).
+- Build from the published design doc when one exists (`tech-notes/<session-id>/<title>-<date>-design.md` and its `prototypes/*.html`): use its tokens, fonts, libraries/CSS decisions, states, and mobile-first behavior, and apply `design-principles` rather than inventing values. Prototypes are reference artifacts — port the intent into the project's framework and tokens instead of pasting prototype code. If the design doc is missing or contradicts the spec, stop and ask the technical lead rather than designing on the fly.
 - Treat browser input as untrusted: apply `input-validation-sanitization` for client-side handling and remember that the client is never the enforcement point — server-side authorization stays in `auth-authorization`/backend scope.
 - Add or maintain stable `data-testid` attributes for QA-critical elements and interactions to enable Playwright automation; preserve existing selectors unless coordinated.
 - Ensure accessibility and required states (loading/empty/error/success/disabled/permission) per spec.

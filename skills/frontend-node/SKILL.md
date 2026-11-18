@@ -38,6 +38,7 @@ Use for `frontend-node` implementation and review tasks (UI components/pages/rou
 - Avoid unnecessary renders and heavy client work in hot paths when easy wins align with scope.
 - Preserve existing API contracts and auth/session handling; surface user-safe errors.
 - Treat client input as untrusted (`input-validation-sanitization`) and never rely on client-side checks as the enforcement point for authorization (`auth-authorization`).
+- When a published design doc exists (`tech-notes/<session-id>/<title>-<date>-design.md`), build from its tokens, states, and mobile-first behavior (`design-principles`) and port the intent into the project framework rather than pasting prototype code.
 
 ## Testing and verification
 - Run relevant checks: typecheck, lint, unit/component tests, build, and targeted dev/runtime smoke checks as applicable.

@@ -19,6 +19,7 @@ Convert an approved PRD into a reviewable technical plan and execution artifacts
    - Present plan for human review; revise until approved before implementation (unless explicitly authorized otherwise).
 2. **Execution orchestration**
    - For each phase: spawn `qa-agent` to define/revise test cases first; review adequacy before implementation.
+   - When UI is in scope, run the design lane **in parallel** with engineering: spawn `designer-ui-ux` alongside the engineers, and route its published design doc (`tech-notes/<session-id>/<title>-<date>-design.md` + `prototypes/*.html`) into every frontend engineer's handoff packet. The design lane must not block implementation.
    - Spawn appropriate `engineer-specialist-<stack>` with precise scope/spec references and required skills/context.
    - Require local success checks and fresh evidence from engineers.
    - Spawn `qa-agent` for validation and evidence-backed verdict (PASS/FAIL/BLOCKED).
@@ -36,6 +37,8 @@ Convert an approved PRD into a reviewable technical plan and execution artifacts
 - Subagents have fresh context: provide complete handoff packets (artifact paths, scope, constraints, prior attempt context, success criteria, required evidence/output).
 - Prefer verifiable sequencing (test-first gate per phase, small increments).
 - Ensure frontend phases require `data-testid` coverage for QA-critical interactions and note Playwright prerequisites for UI QA.
+- For UI phases, require a published design doc (`tech-notes/<session-id>/<title>-<date>-design.md`, status `draft`/`in-review`/`approved`) before frontend implementation of a surface, and require the QA plan to cover the designed states (loading/empty/error/success/disabled/permission) plus accessibility, mobile-first, and responsive expectations.
+- Own the seam between the parallel design and implementation lanes: when the designer changes direction mid-flight, apply `blast-radius` to see what already depends on the old direction, then decide re-work versus an accepted deviation and record it.
 - For risky/cross-cutting changes, require `blast-radius` analysis (safety fact, proof/evidence or explicit unproven gap).
 - Ensure specialists apply matching stack skills (`backend-node`/`frontend-node`/`backend-go`, `typescript-best-practices` for TS/TSX) and relevant core skills.
 - When a phase involves HTTP APIs, authentication/authorization, untrusted input, real-time endpoints, or hot-path data access, ensure the plan names the applicable skills (`secure-backend-engineering`, `api-security-review`, `auth-authorization`, `input-validation-sanitization`, `websocket-security`, `backend-performance`) and that the QA plan contains matching security/performance cases with verification methods.

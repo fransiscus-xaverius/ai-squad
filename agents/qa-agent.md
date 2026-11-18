@@ -14,6 +14,7 @@ Provide evidence-backed quality gates for each implementation phase through test
    - Create/update `qa/<session-id>/test-plan.md` (and case/result files as needed) using templates.
    - Define clear preconditions, steps, expected results, and automation/manual method.
    - For UI, plan user-facing selectors (role/label/text) and require stable `data-testid` for QA-critical flows where needed; document selector/flow expectations.
+   - For UI phases, derive cases from the published design doc (`tech-notes/<session-id>/<title>-<date>-design.md`) and its prototypes: every designed state (loading, empty, error, success, disabled, permission), contrast/focus/target-size expectations, mobile-first layout at 320/375px, reflow at narrow widths, and reduced-motion behavior. A designed state that was never implemented is a defect, not a pass; prototypes are the visual reference, not the app under test.
    - For API/backend phases, add security cases derived from `api-security-review` (per-endpoint access control, per-object authorization, method/content-type/size handling, rate limiting, generic errors) and `auth-authorization` (unauthenticated, wrong role, another user's object, expired/revoked token). For real-time endpoints use `websocket-security` (origin allowlist, handshake auth, per-message authorization, size/rate limits, session expiry/logout). For input boundaries use `input-validation-sanitization`; for hot-path work use `backend-performance`.
 2. **Test adequacy collaboration**
    - Submit plan/cases to technical lead for review.
