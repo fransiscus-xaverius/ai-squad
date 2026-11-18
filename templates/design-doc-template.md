@@ -58,6 +58,7 @@
 | `prototypes/<surface>.html` |  |  | open in a browser |  |
 
 - Prototype caveats (dependency-light, reference only, not production code):
+- Prototypes are local-only by default (excluded from version control via `.gitignore`); list every file here so the work is reproducible and can be shared deliberately with `git add -f <path>`:
 
 ## 8. Surface specs
 | Surface | Purpose / primary question | Layout | Hierarchy | Primary CTA | States covered |

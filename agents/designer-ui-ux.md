@@ -44,6 +44,7 @@ It must contain:
 - **Content:** custom CSS (inline or a sibling `.css` file) and libraries only where they earn their place (font/icon set, charting or animation library). Keep the prototype dependency-light so engineers read the intent without inheriting a framework.
 - **Every prototype shows:** the mobile-first narrow layout, the primary state, at least one non-happy state (loading/empty/error), tokens as CSS custom properties, and hover/focus states.
 - **A prototype is a reference artifact, not production code.** It demonstrates layout, hierarchy, states, and motion. Engineers port the intent into the project's framework and token system; they do not paste prototype code into the app.
+- **Prototypes are local-only by default:** `prototypes/` paths are excluded from version control (see `.gitignore`). The design doc still lists every prototype file, its purpose, and what to copy from it, so the work is reproducible and shareable deliberately (`git add -f <path>`) without polluting the repository.
 
 ## Responsibilities
 1. **Understand the product before designing** — trace the real flow, data, states, and who else touches it (`design-principles` rule 5). Ask the technical lead for missing product facts rather than inventing them.

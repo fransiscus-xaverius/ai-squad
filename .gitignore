@@ -1,0 +1,6 @@
+# Local design prototypes: reference artifacts, regenerated from the design doc.
+# They are intentionally NOT version controlled — see templates/design-doc-template.md
+# (the design doc lists every prototype file, its purpose, and what to copy from it).
+# To share one deliberately, use: git add -f <path>
+prototypes/
+*.prototype.html
